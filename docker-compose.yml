@@ -1,0 +1,62 @@
+version: '3'
+services:
+  db:
+    # restart: always
+    image: postgres:11.7
+    ports:
+      - "5438:5432"
+    volumes:
+      - pgstore_hms:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: hms
+      POSTGRES_PASSWORD: hms
+
+  # mq:
+  #   # restart: always
+  #   image: rabbitmq:3.8.3-management
+  #   volumes:
+  #     - mqstore_lavanda:/var/lib/rabbitmq
+  #   ports:
+  #     - "5676:5672"
+  #     - "15677:15672"
+
+  # redis:
+  #   # restart: always
+  #   image: redis
+  #   ports:
+  #     - "127.0.0.1:6379:6379"
+  #   volumes:
+  #     - redisstore_lavanda:/data
+  
+  web:
+    # restart: always
+    # container_name: lavanda
+    build: .
+    #   context: ./lavanda/
+    #   dockerfile: Dockerfile
+    links:
+      # - redis
+      - db
+    env_file:
+      - var.env
+    volumes:
+      - .:/code/hms
+    command:
+      - /bin/sh
+      - -c
+      - |
+        python manage.py migrate --noinput
+        python manage.py runserver 0.0.0.0:8000
+    ports:
+      - "8000:8000"
+
+
+volumes:
+  pgstore_hms:
+  # mqstore_tariff:
+  # redisstore_tariff:
+
+# networks:
+#   default:
+#     external:
+#       name: hms
