@@ -1,0 +1,70 @@
+{% load rest_framework %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel=stylesheet href=/static/css/bootstrap.css>
+    <link href=/static/css/fontawesome-all.css rel=stylesheet>
+    <link href=/static/css/mdb.min.css rel=stylesheet>
+    <link rel=stylesheet href=static/css/site.css>
+    <script src=/static/js/jquery-3.2.1.js type=text/javascript></script>
+    <script src=/static/js/select2.min.js type=text/javascript></script>
+    <script src=/static/js/popper.min.js type=text/javascript></script>
+    <script src=/static/js/bootstrap.js type=text/javascript></script>
+</head>
+<body>
+    <h1>Reservations</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">slug</th>
+            <th scope="col">check_in</th>
+            <th scope="col">check_out</th>
+            <th scope="col">flat</th>
+            <th scope="col">city</th>
+            <th scope="col">net_income</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% if reservations %}
+                {% for reservation in reservations%}
+                <tr>
+                    <td>{{ reservation.slug }}</td>
+                    <td>{{ reservation.check_in }}</td>
+                    <td>{{ reservation.check_out }}</td>
+                    <td>{{ reservation.flat }}</td>
+                    <td>{{ reservation.city }}</td>
+                    <td>{{ reservation.net_income }}</td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <p> No posts </p>
+            {% endif %}
+        </tbody>
+    </table>
+
+    <h2>Total commission of GR</h2>
+    <a href="{% url 'reservations-total-commission'%}" class="btn btn-outline-primary">
+        Total GR
+    </a><hr>
+
+    <h2>Commission of GR per-month</h2>
+    <a href="{% url 'reservations-monthly-commission'%}" class="btn btn-outline-primary">
+        Total GR per month
+    </a><hr>
+
+    <h2>Commission by passed city name</h2>
+    <form action="{% url 'reservations-total-commission'%}" method="GET">
+        <input id="city" type="text" placeholder="Insert city name"  name="city" value="">
+        <input type="submit" value="Total for city" class="btn btn-outline-primary">
+    </form>
+    
+
+    
+
+</body>
+</html>
+

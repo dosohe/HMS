@@ -1,0 +1,104 @@
+{% extends 'admin/base.html' %}
+{% block content %}
+    <style>
+        .help-text {
+            padding: .1rem;
+            margin-right: 0;
+            margin-left: 0;
+            border-width: .1rem;
+            max-width: 600px;
+        }
+    </style>
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
+    <div class="row">
+        <div class="col-sm-4">
+            <h4 class="mb-3">Импортировать</h4>
+            <div id="content-main">
+                <form action="" method="POST" enctype="multipart/form-data">
+                    <div class="custom-file">
+                        {{ form.as_p }}
+                        {% csrf_token %}
+                    </div>
+                    <button class="btn btn-primary btn-lg btn-block" type="submit">Import</button>
+                    <a href=".." class="btn btn-block btn-outline-primary">
+                        Go back
+                    </a>
+                </form>
+            </div>
+        </div>
+        {#Start help text#}
+        <div class="col-sm-6">
+
+
+            <div class="help-text">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        Инструкция по формату файла
+                    </div>
+                    <div class="card-body">
+                        <p>
+                            Форматы файлов
+                            <span class="badge badge-pill badge-primary">.csv</span><br>
+                        </p>
+                        <ul class="list-group">
+                            <li class="list-group-item align-items-start">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h6 class="mb-1">Reservation <span
+                                            class="badge badge-success">Required field</span></h6>
+                                    <small class="text-muted">slug</small>
+                                </div>
+                                <p class="mb-1">Reservation</p>
+                            </li>
+                            <li class="list-group-item align-items-start">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h6 class="mb-1">Checkin <span
+                                            class="badge badge-success">Required field</span></h6>
+                                    <small class="text-muted">date</small>
+                                </div>
+                                <p class="mb-1">Checkin</p>
+                            </li>
+                            <li class="list-group-item align-items-start">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h6 class="mb-1">Checkout <span class="badge badge-success">Required field</span>
+                                    </h6>
+                                    <small class="text-muted">date</small>
+                                </div>
+                                <p class="mb-1">Checkout</p>
+                            </li>
+                            <li class="list-group-item align-items-start">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h6 class="mb-1">Flat <span
+                                            class="badge badge-success">Required field</span></h6>
+                                    <small class="text-muted">string</small>
+                                </div>
+                                <p class="mb-1">Flat`s title</p>
+                            </li>
+                            <li class="list-group-item align-items-start">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h6 class="mb-1">City <span
+                                            class="badge badge-success">Required field</span>
+                                    </h6>
+                                    <small class="text-muted">string</small>
+                                </div>
+                                <p class="mb-1">City</p>
+                            </li>
+                            <li class="list-group-item align-items-start">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h6 class="mb-1">Net income, EUR <span 
+                                        class="badge badge-success">Required field</span>
+                                    </h6>
+                                    <small class="text-muted">int</small>
+                                </div>
+                                <p class="mb-1">Net income, EUR</p>
+                            </li>
+                        </ul>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    {#END help text#}
+
+{% endblock %}

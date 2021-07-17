@@ -1,3 +1,8 @@
 from django.shortcuts import render
 
-# Create your views here.
+from service import models
+
+
+def index(request):
+    context = {'reservations': models.Reservation.objects.all()}
+    return render(request, 'reservation.html', context)

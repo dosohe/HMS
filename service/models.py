@@ -1,17 +1,15 @@
 from django.db import models
+from django.contrib.auth.models import User
 
-class Room(models.Model):
-    ROOM_TYPES = (
-        ('YAC', 'AC'),
-        ('NAC', 'NON-AC'),
-        ('DEL', 'DELUX'),
-        ('KIN', 'KING'),
-        ('QUE', 'QUEEN'),
-    )
-    type = models.CharField(max_length=3, choices=ROOM_TYPES)
-    beds = models.IntegerField()
-    number = models.IntegerField()
-    capacity = models.IntegerField()
+
+class Reservation(models.Model):
+    slug = models.SlugField(db_index=True, unique=True, max_length=100) 
+    check_in = models.DateTimeField()
+    check_out = models.DateTimeField()
+    flat = models.CharField(max_length=300)
+    city = models.CharField(max_length=300)
+    net_income = models.IntegerField()
 
     def __str__(self) -> str:
-        return f'{self.number}: {self.type} with {self.beds} beds for {self.capacity} people'
+        return f'{self.slug}'
+

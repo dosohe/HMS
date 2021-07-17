@@ -15,7 +15,7 @@ services:
   #   # restart: always
   #   image: rabbitmq:3.8.3-management
   #   volumes:
-  #     - mqstore_lavanda:/var/lib/rabbitmq
+  #     - mqstore_hms:/var/lib/rabbitmq
   #   ports:
   #     - "5676:5672"
   #     - "15677:15672"
@@ -26,13 +26,13 @@ services:
   #   ports:
   #     - "127.0.0.1:6379:6379"
   #   volumes:
-  #     - redisstore_lavanda:/data
+  #     - redisstore_hms:/data
   
   web:
     # restart: always
-    # container_name: lavanda
+    # container_name: hms
     build: .
-    #   context: ./lavanda/
+    #   context: ./hms/
     #   dockerfile: Dockerfile
     links:
       # - redis
@@ -46,6 +46,7 @@ services:
       - -c
       - |
         python manage.py migrate --noinput
+        python manage.py collectstatic --noinput
         python manage.py runserver 0.0.0.0:8000
     ports:
       - "8000:8000"
@@ -53,8 +54,8 @@ services:
 
 volumes:
   pgstore_hms:
-  # mqstore_tariff:
-  # redisstore_tariff:
+  # mqstore_hms:
+  # redisstore_hms:
 
 # networks:
 #   default:
